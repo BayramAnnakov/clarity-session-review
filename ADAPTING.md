@@ -12,11 +12,15 @@ truth lives**.
 ## 1. Clarity access
 
 - **Project.** The Clarity project ID for the site whose recordings you're reviewing.
-- **API token.** A Clarity data-export token, stored outside the repo (an env var or a
-  file the tooling reads). The direct API caps `count` at 250 per request and rate-limits
-  under load — plan day-slices for wide windows (see `references/periodic-review.md`).
-- **MCP server (optional).** If you drive Clarity from an agent, the Clarity MCP server
-  exposes `list-session-recordings`, `query-analytics-dashboard` (the untruncated
+- **API token.** A Clarity data-export token (Clarity → Settings → Data Export), stored
+  outside the repo (an env var or a file the tooling reads). The direct API caps `count`
+  at 250 per request and rate-limits under load — plan day-slices for wide windows (see
+  `references/periodic-review.md`). The endpoint URL and its request-schema gotchas live
+  in the **Clarity-facts appendix** at the end of `references/method.md`.
+- **MCP server (optional).** If you drive Clarity from an agent, the official server is
+  `@microsoft/clarity-mcp-server` on npm (e.g.
+  `npx @microsoft/clarity-mcp-server --clarity_api_token=<token>`); it exposes
+  `list-session-recordings`, `query-analytics-dashboard` (the untruncated
   aggregate layer — use it FIRST as the census), and the docs resource.
 
 ## 2. Your URL → identity join (principle 2)

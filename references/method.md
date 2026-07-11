@@ -7,7 +7,7 @@ only when the cheaper layer can't answer.*
 
 | Layer | What it holds | Where it lives | Access cost |
 |---|---|---|---|
-| 1 — Events | pages, clicks + element text, dead/rage clicks, text-entry, **Page hidden/visible**, durations | API/MCP timeline — **TRUNCATED to ~5 events per page-visit**: aggregates are floors; the FULL log lives only in the player | seconds per 100 sessions |
+| 1 — Events | pages, clicks + element text, dead/rage clicks, text-entry, **Page hidden/visible**, durations | API/MCP timeline — **may be TRUNCATED** (endpoint/version-dependent; see Clarity-facts appendix): aggregates are floors; the player events panel is the complete log | seconds per 100 sessions |
 | 2 — UI states | what the user SAW at moment X (modal copy, agent message, errors, banner) | player frame at a timestamp; full events panel | ~2 actions per still |
 | 3 — Dynamics | cursor trajectory, hover-linger, hesitation-retreat, scroll rhythm | the replay stream — extractable as DATA via the pointer-trace poller | ~1-2 min per window |
 
@@ -25,7 +25,9 @@ census shape from it before touching recordings. Hygiene:
   burst of same-uid single-page rows in one minute is ONE visit, not N sessions.
 - **Duration discipline**: subtract hidden-tab time (totalDuration AND activeDuration
   include it).
-- **Truncation**: API timelines carry ~5 events/page-visit — event counts are floors.
+- **Truncation**: API timelines may be truncated (endpoint/version-dependent) — treat
+  event counts as floors, and spot-check one dense session's API timeline against its
+  player events panel before relying on API counts for anything load-bearing.
 - **Favorite everything relevant today** (30-day rolling retention; favorites are kept
   ~9 months, not forever).
 - Output per surviving session: hypothesis + exact window(s) where the answer lives.
@@ -395,3 +397,25 @@ into patterns). Its procedure:
 
 Monthly cadence: track the dashboard dead-click % as the standing UX-debt KPI; every
 new surface gets a dead-click check 2 weeks post-ship.
+
+---
+
+# Clarity-facts appendix — product-snapshot claims, verified 2026-07
+
+Everything this skill asserts about Clarity-the-product is a snapshot, not a law.
+This table is the single home for those facts. Re-verify a row before leaning on it;
+when one fails its self-check, update it HERE (a method lesson, per the routing rule).
+Never cite an instrument or behavior you haven't verified in YOUR Clarity build —
+inventing instruments is the exact error the dead-click gate forbids.
+
+| Fact (verified 2026-07) | Self-check / failure mode |
+|---|---|
+| **Identify API exists**: `clarity("identify", customId)` — hashed client-side, filterable across dashboard/recordings/heatmaps ([docs](https://learn.microsoft.com/en-us/clarity/setup-and-installation/identify-api)) | If wired, prefer it over the URL-join for attribution. |
+| **Recordings pull**: `POST https://clarity.microsoft.com/mcp/recordings/sample`, Bearer = a Data Export token (Clarity → Settings → Data Export). `count` ≤ 250 (default 100). The date range is REQUIRED and must be nested as `filters.date = {start, end}` (ISO-8601 UTC with milliseconds) — a top-level-only `start`/`end` returns HTTP 500. `sortBy` is an integer enum (0/1 = session start desc/asc, 2/3 = duration, 4/5 = click count, 6/7 = page count). Schema source: `@microsoft/clarity-mcp-server` on npm. | Observed sort behavior doesn't always match the enum name — verify ordering on a 3-session pull before trusting it. Quotas are undocumented: be frugal; the API 503s under load (back off ~90s). The separate aggregate Data Export API is documented at 10 requests/project/day. |
+| **MCP server**: `@microsoft/clarity-mcp-server` (npm), e.g. `npx @microsoft/clarity-mcp-server --clarity_api_token=<token>` — exposes `list-session-recordings` + `query-analytics-dashboard`. | Tool-not-found ⇒ the server isn't registered in your agent config, not a Clarity outage. |
+| **Retention**: recordings ~30 days rolling; favorited/labeled sessions ~9 months; heatmap data ~9 months ([docs](https://learn.microsoft.com/en-us/clarity/setup-and-installation/data-retention)). | If retention shortens, cadence math silently loses the tail — favorite-on-flag the day a cohort is defined. |
+| **Timeline truncation is endpoint/version-dependent** — an early pull capped near ~5 events per page-visit; a 2026-07 `recordings/sample` pull returned 60+ events on one page-visit. | Spot-check one dense session's API timeline against its player events panel each run; treat API counts as floors regardless of what you find. |
+| **Heatmap types**: Click (All/Dead/Rage/Error/First/Last), Scroll, Area, Attention, Conversion — and NO hover map (hover is a Hotjar feature) ([docs](https://learn.microsoft.com/en-us/clarity/heatmaps/)). | Fails safe if it rots (you'd merely under-use a new map type) — but never CITE a map you haven't opened. |
+| **Player DOM**: virtual cursor `.clarity-pointer-move`, clicks `.clarity-click`/`.clarity-click-ring`; events panel rows are English-UI text. | Implementation details — any Clarity release can break them. The Stage-3 validation gate is mandatory before any trace claim; the Stage-2 harvest needs its empty-result diagnostic. |
+| **Masking**: `▪` runs preserve character counts (the decode trick). | Masking is an implementation detail — a masking change would make decodes confidently wrong; re-verify against a known string when in doubt. |
+| **Durations**: `totalDuration` AND `activeDuration` both include hidden-tab time (re-confirmed 2026-07: a "5m32s active" zero-click backgrounded session with the two fields exactly equal). | If Clarity ever fixes `activeDuration`, the prescribed hidden-tab subtraction would double-correct — re-verify the two-fields-equal tell periodically. |

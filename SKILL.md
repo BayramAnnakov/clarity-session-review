@@ -70,9 +70,10 @@ your Clarity gotcha list before the first run of the day; new lessons go back in
    condition). When a UI state surprises you, grep the source for its copy string
    before theorizing.
 4. **Label evidence depth honestly: TIMELINE ≠ REPLAY.** Clarity's API click-timelines
-   are truncated (~5 events per page-visit) and their element text is partially masked
-   — treat all timeline-derived counts as floors and never present a timeline-only read
-   as watched. Findings state their tier: MEASURED (events/DB) / OBSERVED (frames,
+   can be truncated (how much varies by endpoint and version — one pull capped near
+   ~5 events per page-visit, a later one returned 60+) and their element text is
+   partially masked — treat all timeline-derived counts as floors and never present a
+   timeline-only read as watched. Findings state their tier: MEASURED (events/DB) / OBSERVED (frames,
    trace — describe, don't interpret) / INFERRED (motive — labeled).
 5. **Every claim ships with its evidence coordinates.** Named user, player link, the
    timestamps to seek to, and what a verifier should check — the evidence-appendix
@@ -94,7 +95,9 @@ your Clarity gotcha list before the first run of the day; new lessons go back in
    where the ball is in the user's court exposes an action) — coverage-independent,
    diffable, and best pushed UPSTREAM as a unit test. A cold-read comprehension probe +
    frames verify what source can't (incomprehension, styling). Gate every finding on
-   database prevalence + stated cost. (`references/method.md` → UI-clarity review.)
+   database prevalence + stated cost, and cite only instruments you've verified exist
+   in your Clarity build — don't invent instruments (see the Clarity-facts appendix in
+   `references/method.md`). (`references/method.md` → UI-clarity review.)
 
 ## The pipeline
 
