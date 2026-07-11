@@ -33,6 +33,10 @@ CENSUS = [
 TOTAL = sum(c for _, c, _, _, _ in CENSUS)
 act_n = sum(c for _, c, _, _, real in CENSUS if real)
 noise_n = TOTAL - act_n
+# distinct people can NOT be derived from session buckets (principle 6) — it comes
+# from the attribution join; in a real run load it from the enrichment data.
+PEOPLE = '~26'
+thin_n = sum(c for k, c, _, _, _ in CENSUS if k in ('signin_only', 'bounce', 'parked_tab'))
 
 barseg = ''.join(
     f'<span style="width:{100*c/TOTAL:.1f}%;background:{col}" title="{lab}: {c}"></span>'
@@ -46,8 +50,8 @@ def legend(real):
 # --- headline stats: (number, caption, SOURCE) -----------------------------------
 # INVARIANT 1: the third element (source) must be non-empty for every stat.
 STATS = [
-    ('~26',  'real external people (the true audience)',        'from sessions, after removing noise'),
-    ('60%',  'of sessions were thin bounces (&lt;30s, ≤1 click)', 'from sessions'),
+    (PEOPLE, 'real external people (the true audience)',        'from sessions, after removing noise'),
+    (f'{100*thin_n//TOTAL}%', 'of sessions were thin — bounces, sign-in-only, parked tabs', 'from sessions (computed from the census)'),
     ('1',    'user reached the connect step — none new',   'from sessions + database'),
     ('~2k',  'accounts carry a migrated shared expiry date',    'from database (all accounts)'),
 ]
@@ -64,7 +68,7 @@ bar_caption = (
     f"that bucket's share of all {TOTAL}. The <b>coloured</b> buckets are real product "
     f"activity ({act_n} sessions); the <b>greys</b> are noise — sign-ins, bounces, "
     f"background tabs, and team/test ({noise_n}). That grey majority is why {TOTAL} "
-    f"sessions is really ~26 people.")
+    f"sessions is really {PEOPLE} people.")
 assert bar_caption.strip(), "TEMPLATE INVARIANT 2: the mix chart must carry a caption"
 
 # --- findings (in a real run: the refuter-survived patterns) ---------------------
@@ -161,7 +165,7 @@ Ordered by impact; each carries a recommended action and an owner.</div>
 </div>
 
 <div class="card">
-<h2>Who was here <span class="dek">{TOTAL} sessions classified · ~26 distinct people</span></h2>
+<h2>Who was here <span class="dek">{TOTAL} sessions classified · {PEOPLE} distinct people</span></h2>
 <div class="grid">{statcards}</div>
 <div class="dek" style="margin:16px 0 0">{bar_caption}</div>
 <div class="bar">{barseg}</div>
@@ -184,4 +188,4 @@ Ordered by impact; each carries a recommended action and an owner.</div>
 </div></body></html>'''
 
 open(os.path.join(BASE, 'report.html'), 'w').write(HTML)
-print("wrote report.html", len(HTML), "bytes")
+print("wrote report.html", len(HTML), "chars")

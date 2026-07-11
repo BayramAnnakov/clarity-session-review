@@ -1,5 +1,3 @@
-# Generated example output (regenerate with: python3 examples/build_report.py)
-examples/report.html
 __pycache__/
 *.pyc
 .DS_Store
