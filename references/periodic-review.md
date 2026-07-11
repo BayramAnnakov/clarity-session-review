@@ -49,7 +49,11 @@ ws, emails, question, window, priority). Give every classifier the skill's triag
 rubric + a **known-actors list** (named users, competitors, prior-cohort members,
 already-watched keys) so classes stay consistent across batches and nothing is
 re-watched. Merge inline: dedup, count, build the watch-list = flagged ∧ not-excluded,
-priority-sorted, **capped ~2 per workspace** so one heavy user can't eat the watch budget.
+priority-sorted, **capped ~2 per workspace** so one heavy user can't eat the watch
+budget — with two EXEMPTIONS from the cap (see the discovery modules in `method.md`):
+first sessions of genuinely-new humans, and first-week accounts (a new signup's week-1
+arc is the richest artifact at low traffic; the cap must not slice it into
+disconnected samples).
 
 ## Phase 2 — watch (SERIAL — the hard constraint)
 The browser is a single shared resource and background tabs throttle → watchers run
@@ -97,7 +101,11 @@ First run ≈ 2-4h wall (watching dominates), ~1.5-3M tokens. **Biweekly** fits 
 ~30-day retention with margin (favorite-on-flag protects the tail). Semi-attended, not
 cron — the watch phase drives a real Chrome tab. Each run's confirmed patterns join
 the next run's triage rubric, so the flag rate — and the expensive watch phase —
-shrinks every period (the codebook compounds, like a VoC coding scheme).
+shrinks every period (the codebook compounds, like a VoC coding scheme). **Reinvest
+that saving into the discovery modules, not into watching less**: hold the total
+exploration budget (calibration + first-session + success-session watches) constant —
+a flag rate that only shrinks is efficiency for defect census and a death spiral for
+discovery.
 
 ## Denominator reminder
 Lead the report with people, not sessions (principle 6). The first run's 462 sessions

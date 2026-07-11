@@ -417,6 +417,117 @@ into patterns). Its procedure:
 Monthly cadence: track the dashboard dead-click % as the standing UX-debt KPI; every
 new surface gets a dead-click check 2 weeks post-ship.
 
+# Discovery modules — balancing the question portfolio
+
+*Added after a four-perspective product-expert review (2026-07) whose consensus was:
+the forensic pipeline is excellent and points the player only at FAILURE signals —
+drop-offs, dead clicks, anomalies. A method that only asks pathology questions is
+structurally blind to everything else replays uniquely show: how a first-timer's
+comprehension forms, what intent gets typed and abandoned, how successful users
+actually work, and what changes between visits. These four modules add those question
+families.*
+
+**Guardrails (non-negotiable).** Every module runs THROUGH the existing discipline —
+Stage-0 question, evidence tiers, appendix rows, the refuter — never around it.
+Before using any NEW claim class, write its claim-type verification row (required raw
+evidence · known false-positive modes · alternate explanations that must die); a
+signal with no row is a hypothesis. The pointer-trace poller STAYS gated: no
+hesitation / approach-retreat claims unless a named decision needs sub-second
+dynamics AND the Stage-3 validation gate passes — motionless-reading windows and
+`Page hidden` attention carry most of the comprehension signal at frame-tier cost.
+
+## First-session comprehension watch — EXPERIMENT
+
+*Status: experiment, 2 periods. Promote to standing only if it produces findings that
+change decisions at ≥ the flagged-set rate. Validity check each period: a human
+re-watches a sample of the agent-labeled "comprehension broke" moments and the
+agreement rate is published with the findings — automated watchers have over-called
+soft signals before (see the dead-click gate's history).*
+
+Every genuinely-new external human's first engaged session gets ONE full 1× watch,
+skip-inactivity OFF — exempt from the triage gate and the per-workspace watch cap.
+"Genuinely new" is an attribution claim: verify a sign-up flow and dedup
+cross-account humans (principle 2) before calling anyone new. At low traffic this is
+a handful of sessions per period — the cheapest attack on activation there is.
+
+Harvest (replay-unique: the database shows the activation OUTCOME; only the tape
+shows the comprehension PATH):
+- what was on screen during motionless-READING windows — what got read vs skipped;
+- the first thing tried, and the gap between what onboarding DISPLAYS and what the
+  user ATTENDS to;
+- **the moment comprehension broke** (REQUIRED output field): frame + timestamp where
+  behavior diverged from the UI's intent — or explicitly "none: completed the path".
+
+Known false-positive modes (the claim-type row): a backgrounded tab is not stalled
+comprehension (read `Page hidden`/`visible` first); auto-translate artifacts; a
+"first session" that is a cross-account return; masked text misread as ignored text.
+Route each break-moment two ways: an OPPORTUNITY row in the report, and an interview
+question for that user ("at MM:SS you paused on X — what were you looking for?").
+
+## Input-struggle / abandoned-intent forensics (standing — events-tier, cheap)
+
+The events harvest already captures `Entered text` / `Text input` rows and then no
+module reads them; and the masking ▪-count trick tracks attempt LENGTH without
+reading a character of content. The product database holds only SUBMITTED inputs —
+the replay is the sole record of what users wanted to say and abandoned. Per input
+surface, from the harvest:
+- re-entry count and clear-and-retype cycles; dwell before the first keystroke;
+- the **abandonment field** — the last field touched before the session died;
+- validation-error loops (error copy in frame + repeated input on the same field);
+- for your primary free-text surface (a chat/prompt box, search, a long form field):
+  drafts typed-then-deleted, rephrase loops (attempt length shrinking across tries,
+  via ▪ counts), composed-but-never-submitted.
+
+Triangulate every abandoned-intent claim against the database: confirm no submission
+row exists for that window. Known false-positive modes: ordinary composition editing
+(one rewrite ≠ struggle — require ≥2 clear-and-retype cycles or an abandonment);
+paste events (instant length jump); IME/autocomplete artifacts.
+Output: surface · sessions · struggle class · abandoned y/n · DB-confirmed-absent ·
+links. An abandoned draft is an unmet need in the user's own (redacted) words —
+route it to the report's Opportunities section.
+
+## Person-arc / return-visit deltas (standing)
+
+The identity stitching built for denominator hygiene — uid collapse, URL joins,
+referrer chains — gets repointed at BEHAVIOR. For each human with ≥2 real visits in
+the window:
+- **Second-session-first-action:** what they went to FIRST on return, and within how
+  many seconds — straight to the working surface, a re-orientation loop, or
+  re-reading onboarding they'd already seen. The most honest revealed-preference
+  signal of what value the user thinks the product has. Timeline-tier for most
+  sessions; replay-tier when ambiguous.
+- **Fluency delta:** time-to-first-meaningful-action on visit 1 vs visit N;
+  hesitations that vanish (habituation) vs persist (standing UX debt); a dead-click
+  that recurs across weeks before the account goes quiet. Only a replay distinguishes
+  a confident return from a lost one — the database logs identical outcome rows for
+  both.
+
+First-week accounts are EXEMPT from the per-workspace watch cap: the cap protects the
+census from heavy users; it must not slice a new signup's week-1 arc into
+disconnected samples.
+Known false-positive modes: cross-device humans (uid undercounts — state coverage); a
+"return" that is a teammate on the account (attribution); parked-tab heartbeats are
+not returns (classify via thin-session forensics first). Any pattern generalized from
+ONE arc goes through the refuter's single-user-generalization row.
+Feed: the report's "users to call" rows, with the timestamps already attached.
+
+## Success-session workflow shape (standing)
+
+Each period, DB-select ~5 sessions where the value moment was REACHED — the
+behavioral pipeline never flags these, because nothing failed — and watch HOW the
+work was actually done:
+- order of operations vs the designed path; workarounds; copy-outs (the demand
+  dead-click class 2 already proved); external round-trips — the quick-backs metric
+  RANKS them; watch the top cases instead of stopping at the aggregate;
+- what users do AROUND the product to make it work.
+
+The database proves the outcome happened; only the tape shows the detours the user
+survived to get there — roadmap material dictated by behavior instead of opinion.
+Known false-positive modes: a power user's idiosyncrasy is not "the workflow"
+(require the same shape from ≥2 independent humans, else label it single-user); team
+members demoing (attribution).
+Feed: the Opportunities section + the pattern table, strength-tagged as usual.
+
 ---
 
 # Clarity-facts appendix — product-snapshot claims, verified 2026-07

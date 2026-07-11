@@ -48,7 +48,7 @@ This skill is the checklist that makes that the default, not the lucky exception
 | File | What it is |
 |---|---|
 | [`SKILL.md`](SKILL.md) | The skill: the seven principles, the two modes, the pipeline, the report contract, the replay-semantics gotcha list, the cadences, and the blind spots. |
-| [`references/method.md`](references/method.md) | Per-session mechanics + the standing modules: the **Clarity-instruments toolkit** (recordings are 1 of ~10 families), **thin-session forensics**, **dead-click analysis** (with a verify-first gate — a dead-click *count* is not a defect count), and the **UI-clarity review**. |
+| [`references/method.md`](references/method.md) | Per-session mechanics + the standing modules: the **Clarity-instruments toolkit** (recordings are 1 of ~10 families), **thin-session forensics**, **dead-click analysis** (with a verify-first gate — a dead-click *count* is not a defect count), the **UI-clarity review**, the **discovery modules** (first-session comprehension · input-struggle/abandoned-intent · person-arc/return-visit · success-session shape), and a date-stamped **Clarity-facts appendix**. |
 | [`references/periodic-review.md`](references/periodic-review.md) | Mode B — the recurring "session-intelligence report" over ALL sessions in a window, as a **resumable multi-agent workflow** (scout → triage fan-out → serial watch → synthesize + adversarial refute). |
 | [`ADAPTING.md`](ADAPTING.md) | The eight-item checklist to wire the method to **your** product (URL→identity join, your database, your exclusion list, your source paths…). |
 | [`examples/`](examples/) | A templatized, data-driven report generator. |

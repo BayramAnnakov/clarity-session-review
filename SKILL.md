@@ -38,7 +38,9 @@ same principles, but orchestrated as a resumable multi-agent workflow — see
 [references/periodic-review.md](references/periodic-review.md). The principles are
 mode-agnostic; the mechanics differ at scale. Per-session mechanics and the standing
 modules (instruments toolkit, dead-click analysis, thin-session forensics, UI-clarity
-review) live in [references/method.md](references/method.md).
+review, and the discovery modules: first-session comprehension, input-struggle /
+abandoned-intent, person-arc, success-session shape) live in
+[references/method.md](references/method.md).
 
 Pair this with your own product-analytics notes — the instrument map, the
 denominator discipline, and the access paths for your database and analytics. Read
@@ -48,7 +50,13 @@ your Clarity gotcha list before the first run of the day; new lessons go back in
 
 1. **Question before player.** The unit of watching is a QUESTION scoped to a
    time-window, never "a recording". No discriminating question → no watching.
-   Triage generates the questions; the player answers them.
+   Triage generates the questions; the player answers them. And keep the question
+   PORTFOLIO balanced: pathology ("why did X fail") is one family of four —
+   comprehension (what did a first-timer understand), workflow shape (how successful
+   users actually get value), and journey (what changed between visit 1 and visit N)
+   are the others. A portfolio that only asks pathology questions routes the player
+   only to wreckage and is structurally blind to everything else replays uniquely
+   show (see the discovery modules in `references/method.md`).
 2. **Attribute before interpreting.** If you've wired Clarity's [Identify API](https://learn.microsoft.com/en-us/clarity/setup-and-installation/identify-api)
    (`clarity("identify", customId)` — hashed client-side, filterable across
    dashboard/recordings/heatmaps), that is the first-class join: use it. If you
@@ -151,10 +159,18 @@ your Clarity gotcha list before the first run of the day; new lessons go back in
 then: census (mix + deltas vs last period) · funnel-stage classification · **pattern
 table (new vs recurring, each strength-tagged, each refuter-survived)** · **dead-click
 + UI-clarity review (misleading labels / status-without-action, source-confirmed)** ·
-thin-session forensics · watched-evidence appendix (verifiable links) · your OEC (the
+thin-session forensics · **opportunities (no fix attached)** — unmet needs surfaced by
+the discovery modules (abandoned intents, round-trip demands, comprehension gaps),
+each with evidence coordinates + database prevalence but deliberately WITHOUT a
+recommended fix, so genuine discovery isn't force-fitted into the defect template ·
+watched-evidence appendix (verifiable links) · **struggle reel** — ≤5 clips (player
+link + timestamp + one line, 30-60s each) chosen for what they'd make the team FEEL,
+watched together; aimed at exposure, not verification · your OEC (the
 Overall Evaluation Criterion — the one metric the review is accountable to) + your
 funnel-gate numbers (paywall/limit hits, OAuth/connect outcomes) · users to call
-(where identifiable). Every finding pairs with a recommended action + owner. Label
+(where identifiable). Every DEFECT finding pairs with a recommended action + owner;
+every OPPORTUNITY pairs with a validation step (who to call, what to probe) — not a
+premature fix. Label
 every number with its source (sessions vs database); explain any chart. HTML alongside
 Markdown. **Generate the HTML from the data JSONs** with a `build_report.py` (see
 [examples/](examples/)) — numbers reproducible, never hand-transcribed; the recurring
@@ -201,9 +217,18 @@ report is a re-run, not a rewrite.
 - **Monthly UX-debt:** pull dead-click floors by surface (API) + the dashboard's
   session-level dead-click % + rage-click filter; any new surface gets a dead-click
   check two weeks after shipping.
+- **First-session watch (EXPERIMENT):** every genuinely-new external human's first
+  engaged session gets one full 1× watch — exempt from the triage gate and the watch
+  caps; required output: *the moment comprehension broke*. Promote or kill on its
+  2-period hit rate (see the module in `references/method.md`).
+- **Success-session sample:** each period, DB-select ~5 sessions where the value
+  moment was REACHED and watch how the work was actually done — the behavioral
+  pipeline never flags these, because nothing failed.
 - **Weekly calibration:** one UNSCOPED 1× full-watch per active cohort — the
   unknown-unknowns detector; log what it catches that the pipeline missed (the method's
-  own error rate).
+  own error rate). **Hold this budget constant** as the triage codebook compounds — a
+  flag rate that only shrinks is efficiency for defect census and a death spiral for
+  discovery; reinvest the savings into the discovery modules, not into watching less.
 
 ## Known blind spots (say them with the findings)
 

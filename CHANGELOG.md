@@ -3,6 +3,32 @@
 All notable changes to this skill are documented here. This is a public snapshot
 of a living internal skill; the principles are battle-tested, the examples anonymized.
 
+## [1.1.0] — 2026-07
+
+Discovery modules, from a four-perspective product-expert review whose consensus
+was: the forensic layer is best-in-class, but the question portfolio only asks
+pathology questions — the pipeline routes the player exclusively to failure
+signals, leaving replay-unique discovery classes unharvested.
+
+- **Principle 1 extended**: the question portfolio spans four families —
+  pathology, comprehension, workflow shape, journey.
+- **Four new modules** in `references/method.md`, each running through the
+  existing gates (evidence tiers, claim-type verification rows, refuter):
+  - *First-session comprehension watch* (EXPERIMENT — promote/kill on a
+    2-period hit rate; agent-label validity spot-checked by a human re-watch);
+  - *Input-struggle / abandoned-intent forensics* (events-tier: the DB holds
+    only submitted inputs — the replay is the sole record of abandoned intent);
+  - *Person-arc / return-visit deltas* (second-session-first-action, fluency
+    deltas; first-week accounts exempt from the watch cap);
+  - *Success-session workflow shape* (~5 value-moment sessions per period —
+    the pipeline never flags these, because nothing failed).
+- **Report contract additions**: an *opportunities (no fix attached)* section
+  (unmet needs aren't force-fitted into the defect template) and a *struggle
+  reel* (≤5 clips watched by the team — exposure, not verification).
+- **Budget guardrail**: hold the exploration budget constant as the triage
+  codebook compounds — a flag rate that only shrinks is a discovery death
+  spiral.
+
 ## [1.0.1] — 2026-07
 
 Fixes from an adversarial evaluation of the public snapshot (two cold-adopter
