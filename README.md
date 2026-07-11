@@ -37,8 +37,8 @@ This skill is the checklist that makes that the default, not the lucky exception
 5. **Every claim ships with its evidence coordinates** — link + timestamps + what to
    check. Verification should be a two-minute job.
 6. **Count people, not sessions.** Clarity fragments one visit into many "sessions" (one
-   user showed up as 59); 50-60% of a pull is thin bounces. One run's 462 sessions was
-   **~26 real people** — lead with that number.
+   user showed up as 59); on our runs 50-60% of a pull was thin bounces. One run's 462
+   sessions was **~26 real people** — lead with that number.
 7. **Audit what the UI *shows*, not only what users click.** The method is behavioral and
    blind to a misleading label or a status with no next action; a source-lint of the
    label code catches those. *(Provisional.)*

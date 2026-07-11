@@ -197,8 +197,8 @@ Clarity" — recordings are one of ~10 families.
 
 # Thin-session forensics (standing module — no watching required)
 
-Thin sessions (<30s, ≤1 click; typically 50-60% of all sessions) are a separate
-instrument, not noise. Aggregate them (Python over the pull JSON) by **entry-URL
+Thin sessions (<30s, ≤1 click; 50-60% of all sessions on our runs — measure your own
+share) are a separate instrument, not noise. Aggregate them (Python over the pull JSON) by **entry-URL
 class × referrer domain × browser-uid × duration**, with uid-level exclusion (any
 uid that EVER touches an excluded workspace is excluded everywhere). What they carry:
 
@@ -331,8 +331,10 @@ selection? a working control clicked once?}. never-returned → {no session cros
 Adding a claim class means adding its row first; a signal with no row is a hypothesis,
 not a finding.
 
-Taxonomy (from the census — 164 dead clicks / 23 sessions, floors —
-pre-gate, so counts are upper bounds that include copy-select + reading-taps):
+Taxonomy (from one product's census — 164 dead clicks / 23 sessions, floors —
+pre-gate, so counts are upper bounds that include copy-select + reading-taps). The
+CLASSES are general; the named instances are one product's (an AI outreach tool) —
+map them to your own domain rather than hunting for these exact elements:
 
 1. **Whole-surface false affordance — the biggest, most actionable class.** A
    card / tile / banner / list-row that contains a *small* inner CTA, but the whole
@@ -355,8 +357,9 @@ pre-gate, so counts are upper bounds that include copy-select + reading-taps):
    INFERRED — clipboard is invisible). Here the fix runs the other way: either add a
    real affordance (a copy button, an expand toggle — the copy-out demand is genuine)
    or make the text visibly non-interactive so it stops inviting clicks.
-3. **Disabled controls while the agent works** — users hammer a disabled Send /
-   primary-action button (watched: 3 dead action-button clicks in one session).
+3. **Disabled controls during async work** (e.g. while an AI agent or a long job
+   runs) — users hammer a disabled Send / primary-action button (watched: 3 dead
+   action-button clicks in one session).
    Clarity's Dead-click label is unreliable here (any DOM reaction suppresses it);
    instrument a `*.DisabledClick` event for an unambiguous impatience signal, and
    consider queuing the message + a "you can type while I work" affordance.

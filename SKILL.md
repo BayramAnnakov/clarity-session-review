@@ -82,7 +82,8 @@ your Clarity gotcha list before the first run of the day; new lessons go back in
 6. **Count people, not sessions.** Session counts are NOT user counts. Clarity
    fragments one continuous visit into many single-page "sessions" (multi-tab /
    buffering — one user's single five-minute visit showed up as **59 sessions**), and
-   50-60% of any pull is thin bounces, on top of team/test and hidden-tab inflation.
+   thin bounces are often the majority of a pull (50-60% on our runs — measure yours),
+   on top of team/test and hidden-tab inflation.
    Before any rate, compute the REAL engaged denominator — distinct external humans who
    reached the product — and lead with it: one run's 462 raw sessions was **~26
    people**. A rate over raw session counts is almost always wrong; strip the noise
@@ -162,8 +163,8 @@ report is a re-run, not a rewrite.
 ## Reading the replay — semantics that will fool you (verified list)
 
 - **`Page hidden`/`Page visible` is the real attention signal.** Foreground attention
-  in first sessions often measures at 30-90 seconds; everything else is a backgrounded
-  tab. Long "engaged" sessions dissolve into 2-8-second glances. Read these events
+  in first sessions measured at 30-90 seconds on our runs; everything else is a
+  backgrounded tab. Long "engaged" sessions dissolve into 2-8-second glances. Read these events
   before calling any session "staring", "struggling", or "engaged".
 - **"User left site — N min" = a same-tab redirect** (e.g. into hosted OAuth). A
   **popup** window creates NO hidden/left-site event — clicks just continue in the main

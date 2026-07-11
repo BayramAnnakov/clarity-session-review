@@ -8,11 +8,15 @@ script itself remains internal. Same seven principles as Mode A; the difference 
 orchestration at scale.*
 
 ## Scope decision (state it up front)
-"Review ALL recordings" = **census 100% · replay-watch ~5-8% (the flagged set) ·
-triangulate 100% of findings.** Watching every session is ~30-40h of serial browser
-time spent mostly on hidden tabs and 10-second bounces. The census is the pattern
-instrument; replays are the microscope for what the census can't explain. Expect
-~25-40 flagged sessions on the first run; the pattern library shrinks that each period.
+"Review ALL recordings" = **census 100% · replay-watch the flagged set ·
+triangulate 100% of findings.** Watching every session is serial browser time spent
+mostly on hidden tabs and 10-second bounces. The census is the pattern instrument;
+replays are the microscope for what the census can't explain. On our first run
+(~460 sessions) the flagged set was ~40 sessions, ~5-8% of the pull; expect flags to
+scale with your pull and the pattern library to shrink them each period. **At high
+traffic** (thousands of sessions per week) the 100%-census arithmetic here no longer
+fits in one pull: census via the aggregate dashboard layer, then SAMPLE the watch
+population — stratified by funnel stage or entry surface — instead of enumerating it.
 
 ## The shape — four phases; the middle two are ONE resumable Workflow
 
@@ -26,10 +30,10 @@ instrument; replays are the microscope for what the census can't explain. Expect
 Run phases 1-3 as a **Workflow** so the run is resumable (survives session limits).
 
 ## Phase 0 — scout (inline, deterministic, no agents)
-- **Pull** via the direct API / Clarity MCP. **The `count` cap is 250, and 250 recent
-  sessions ≈ a few days of traffic for a mid-volume product** — so a 2-week window needs
-  several **day-slices** with explicit `start`/`end` (ISO-8601 UTC) and dedup on session
-  link. The API 503s under load — back off ~90s and retry; don't hammer. Save the raw
+- **Pull** via the direct API / Clarity MCP. **The `count` cap is 250** — at ~100-150
+  sessions/day that's a few days of traffic, so a 2-week window needs several
+  **day-slices** with explicit `start`/`end` (ISO-8601 UTC) and dedup on session
+  link; scale the slice width to your own volume. The API 503s under load — back off ~90s and retry; don't hammer. Save the raw
   pull JSON: it preserves player links even after the recording expires from retention.
 - **Enrich**: join every workspace/account UUID to your product database → emails,
   subscription status, usage. Apply your canonical exclusion list.
