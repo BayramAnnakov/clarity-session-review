@@ -91,8 +91,7 @@ your Clarity gotcha list before the first run of the day; new lessons go back in
    where the ball is in the user's court exposes an action) — coverage-independent,
    diffable, and best pushed UPSTREAM as a unit test. A cold-read comprehension probe +
    frames verify what source can't (incomprehension, styling). Gate every finding on
-   database prevalence + stated cost. Clarity has NO hover heatmap — don't invent
-   instruments. (`references/method.md` → UI-clarity review.)
+   database prevalence + stated cost. (`references/method.md` → UI-clarity review.)
 
 ## The pipeline
 
