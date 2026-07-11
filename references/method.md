@@ -46,6 +46,9 @@ by innerText pattern:
 let results = [];
 document.querySelectorAll('div, li').forEach(el => {
   const t = (el.innerText || '').trim();
+  // keep only the OUTERMOST element of a nested identical chain (one per rendered row)
+  const p = el.parentElement;
+  if (p && (p.innerText || '').trim() === t) return;
   if (/^(Click|Page hidden|Page visible|Dead click|Selected text|Resized page|Rage click|Text input|Quick back click|Smart event|Entered text)[\s\S]{0,120}\d{2}:\d{2}$/.test(t)
       && el.children.length <= 6 && !t.includes('\n\n')) {
     results.push(t.replace(/\n+/g, ' ')
@@ -53,11 +56,24 @@ document.querySelectorAll('div, li').forEach(el => {
                   .replace(/[?&]\S+/g, ''));
   }
 });
-[...new Set(results)].filter(r => (r.match(/\d{2}:\d{2}/g)||[]).length === 1);
+// remaining identical rows are REPEATED EVENTS (a hammered dead click) — evidence,
+// not noise: keep them with counts instead of Set-deduping them away
+const rows = results.filter(r => (r.match(/\d{2}:\d{2}/g)||[]).length === 1);
+const counts = new Map();
+rows.forEach(r => counts.set(r, (counts.get(r) || 0) + 1));
+[...counts].map(([r, n]) => n > 1 ? `${r} ×${n}` : r);
 ```
 
 Slice the array if it exceeds output limits. This recovers everything the API
 truncated (Smart events, Entered text, Quick back clicks included).
+
+**If the harvest returns `[]` on a session that visibly has events, diagnose before
+trusting it as "quiet":** count elements matching only the trailing-timestamp anchor
+(`[...document.querySelectorAll('div,li')].filter(el => /\d{2}:\d{2}$/.test((el.innerText||'').trim())).length`).
+Nonzero ⇒ the event LABELS changed (a Clarity release, or a non-English UI locale —
+the alternation above is English-fitted); zero ⇒ the panel DOM restructured
+(re-derive the selector). `el.children.length <= 6` is version-fitted, not a player
+invariant. An empty harvest is a broken harvester until proven otherwise.
 
 **(b) Targeted stills**: seek to each decisive window and screenshot the frame.
 Player mechanics (all verified the hard way):
