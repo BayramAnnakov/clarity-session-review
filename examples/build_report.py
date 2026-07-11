@@ -93,6 +93,28 @@ FINDINGS = [
 assert all(f.get('rec', '').strip() and f.get('owner', '').strip() for f in FINDINGS), \
     "TEMPLATE INVARIANT 3: every finding must carry a recommendation and an owner"
 
+# --- opportunities: unmet needs, deliberately WITHOUT a fix (discovery modules) ---
+# INVARIANT 4: every opportunity carries a validation step (who to call / what to
+# probe) — never a recommended fix; that's what keeps discovery from being
+# force-fitted into the defect template.
+OPPS = [
+    dict(title='An unmet need goes here — stated without a solution',
+         body='What the replays show users trying to do that the product does not '
+              'support: an abandoned draft, a repeated external round-trip, a '
+              'comprehension gap. Evidence coordinates + database prevalence — '
+              'no fix attached.',
+         validate='The discovery follow-up: who to call, or what to probe next.'),
+]
+assert all(o.get('validate', '').strip() and 'rec' not in o for o in OPPS), \
+    "TEMPLATE INVARIANT 4: every opportunity carries a validation step, not a fix"
+
+def oppcard(o):
+    return f'''<div class="finding">
+ <div class="fh"><h3>{esc(o['title'])}</h3></div>
+ <p style="margin-left:0">{o['body']}</p>
+ <div class="rec" style="margin-left:0"><span class="reclabel" style="color:var(--amber)">Validate next</span>{o['validate']}</div>
+</div>'''
+
 def findcard(f):
     ev = ''
     if f['ev']:
@@ -176,6 +198,11 @@ Ordered by impact; each carries a recommended action and an owner.</div>
 <div class="card">
 <h2>Findings &amp; recommended actions</h2>
 {''.join(findcard(f) for f in FINDINGS)}
+</div>
+
+<div class="card">
+<h2>Opportunities <span class="dek">unmet needs, no fix attached — each pairs with a validation step</span></h2>
+{''.join(oppcard(o) for o in OPPS)}
 </div>
 
 <div class="card">
