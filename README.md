@@ -27,8 +27,9 @@ This skill is the checklist that makes that the default, not the lucky exception
 ## The seven principles (each one paid for by a specific mistake)
 
 1. **Question before player.** No discriminating question → no watching.
-2. **Attribute before interpreting.** Clarity has no `identify()`; session-entry URLs
-   usually carry the identity — join it to your database before you interpret anything.
+2. **Attribute before interpreting.** Wire Clarity's Identify API if you can — it's
+   the first-class join. Until then, session-entry URLs usually carry the identity —
+   join it to your database before you interpret anything.
 3. **A replay alone is a story; replay + database + source code is a finding.**
    Triangulate every load-bearing claim.
 4. **TIMELINE ≠ REPLAY.** API timelines are truncated and masked — treat their counts as

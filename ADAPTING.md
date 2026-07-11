@@ -21,8 +21,13 @@ truth lives**.
 
 ## 2. Your URL → identity join (principle 2)
 
-Clarity has no `identify()`. Find the identity your **session-entry URLs** already
-carry:
+First check whether you can simply wire Clarity's
+[Identify API](https://learn.microsoft.com/en-us/clarity/setup-and-installation/identify-api)
+(`clarity("identify", customId)` on login — hashed client-side, filterable across the
+dashboard, recordings, and heatmaps). That is the first-class attribution mechanism,
+and everything below becomes the fallback for sessions recorded before you wired it.
+
+If it's not wired yet, find the identity your **session-entry URLs** already carry:
 
 - What's the URL shape of your app? Which path segment is the **account/workspace ID**,
   and which is the **object ID** (the specific record the user was looking at)?
@@ -32,6 +37,11 @@ carry:
   This is what lets you pin the *exact* record and disambiguate multi-user accounts.
 - Note any query params that mark a **value-moment surface** (e.g. `?panel=…`) — useful
   as a triage population filter.
+- **If your URLs carry no identity at all** (anonymous-majority B2C — storefronts,
+  content sites): instrument the Identify API + custom tags at login/checkout going
+  forward, join purchasers via order-confirmation URLs, and accept that for past
+  sessions the only person-proxy is the browser-uid — report **rates over a cleaned
+  uid cohort**, not people counts; a true people count is not recoverable retroactively.
 
 ## 3. Your database — where the real outcome lives (principle 3)
 

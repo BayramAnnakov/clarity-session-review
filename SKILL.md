@@ -49,8 +49,11 @@ your Clarity gotcha list before the first run of the day; new lessons go back in
 1. **Question before player.** The unit of watching is a QUESTION scoped to a
    time-window, never "a recording". No discriminating question → no watching.
    Triage generates the questions; the player answers them.
-2. **Attribute before interpreting.** Clarity has no `identify()` — but session-entry
-   URLs usually carry identity. If your app's URLs embed account and object IDs
+2. **Attribute before interpreting.** If you've wired Clarity's [Identify API](https://learn.microsoft.com/en-us/clarity/setup-and-installation/identify-api)
+   (`clarity("identify", customId)` — hashed client-side, filterable across
+   dashboard/recordings/heatmaps), that is the first-class join: use it. If you
+   haven't (most products), session-entry URLs usually carry identity — and wiring
+   the Identify API is the proper fix to schedule. If your app's URLs embed account and object IDs
    (e.g. `app.example.com/{accountId}/{objectType}/{objectId}`), the account ID joins
    to your user/account table and the object ID pins the exact record the user was
    looking at — disambiguating multi-user accounts. URL-matching also catches TEAM
