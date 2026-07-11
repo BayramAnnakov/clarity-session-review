@@ -3,9 +3,9 @@
 *Mode B of the skill (Mode A = targeted investigation). Goal: a recurring
 "session-intelligence report" — the Voice-of-Customer analogue for product behavior —
 over EVERY session in a time window. Born from a real run over 462 sessions; its
-workflow script + report generator are the reference implementation (see
-`../examples/`). Same five+one principles as Mode A; the difference is orchestration
-at scale.*
+report generator is the reference implementation (see `../examples/`) — the workflow
+script itself remains internal. Same seven principles as Mode A; the difference is
+orchestration at scale.*
 
 ## Scope decision (state it up front)
 "Review ALL recordings" = **census 100% · replay-watch ~5-8% (the flagged set) ·
@@ -82,10 +82,11 @@ poor-man's Python version before this tool was wired — don't repeat that.)
 Every completed agent is journaled. On a session-limit stall (which is SILENT — no
 completion notification), resume with `Workflow({scriptPath, resumeFromRunId})`:
 completed watchers replay from cache instantly — the browser is NOT re-driven (verify
-via `observation/*.md` mtimes: anything older than the resume time was replayed, not
+via `observations/*.md` mtimes: anything older than the resume time was replayed, not
 re-watched) — and only the limit-failed agents run live. Schedule a wakeup just past
 the reset (your agent runtime's rate-limit reset window) as a fallback trigger. The one
-real run hit the limit mid-watch (10 of 16 done) and resumed losslessly.
+real run hit the limit mid-watch (10 of that phase's 16 watchers done; 21 sessions
+watched across the whole run) and resumed losslessly.
 
 ## Cost & cadence
 First run ≈ 2-4h wall (watching dominates), ~1.5-3M tokens. **Biweekly** fits the
@@ -99,5 +100,3 @@ Lead the report with people, not sessions (principle 6). The first run's 462 ses
 was ~26 distinct external people after stripping team/test (16%), thin bounces (58%),
 hidden-tab inflation, and fragmentation (one user = 59 "sessions"). Every rate reads
 against that number.
-</content>
-</invoke>

@@ -1,7 +1,6 @@
-# How to watch a session recording (staged method, v4)
+# How to watch a session recording (staged method)
 
-*Canonical home of the method (v4 adds the round-2 lessons: JS events-panel harvest,
-player mechanics, DB/source triangulation).
+*Canonical home of the method.
 The unit of watching is never "a recording" — it is a QUESTION scoped to a TIME-WINDOW.
 A session's information lives in three layers with different access costs; escalate
 only when the cheaper layer can't answer.*
@@ -27,7 +26,8 @@ census shape from it before touching recordings. Hygiene:
 - **Duration discipline**: subtract hidden-tab time (totalDuration AND activeDuration
   include it).
 - **Truncation**: API timelines carry ~5 events/page-visit — event counts are floors.
-- **Favorite everything relevant today** (30-day rolling retention; favorites persist).
+- **Favorite everything relevant today** (30-day rolling retention; favorites are kept
+  ~9 months, not forever).
 - Output per surviving session: hypothesis + exact window(s) where the answer lives.
 
 ## Stage 1.5 — the player's own AI (free hypotheses)
@@ -123,8 +123,9 @@ INFERRED (motive, labeled) + the Stage-0 answer. Every OBSERVED line carries
 provenance: `[stage | instrument | speed | skip on/off | resolution | window covered]`.
 Negative evidence states coverage + resolution. Per session, one appendix row:
 **who (workspace + user) · player link · the moments to seek to · the claim · what a
-verifier should check · depth label (REPLAY/TIMELINE)** — the
-`reviewed-recordings.md` pattern. Contradictions update the upstream census.
+verifier should check · depth label (REPLAY/TIMELINE)** — the evidence-appendix
+pattern (one file a verifier can walk link by link). Contradictions update the
+upstream census.
 
 ---
 
@@ -155,7 +156,8 @@ census + issue-discovery layer. What each finds (30-day window, verified):
   bill). "Click errors" (JS error right after a click) auto-tags the session — filter to it.
 - **Heatmaps (validated — visual, dashboard only, NOT the NL API).** Open
   Heatmaps → pick map type (Click has a sub-menu: All / Dead / Rage / Error / First /
-  Last clicks · plus Scroll · Attention · Area). **The URL-match trick is essential:**
+  Last clicks · plus Scroll · Attention · Area · Conversion). **The URL-match trick is
+  essential:**
   your product's URLs are per-account/per-object, so `is exactly` pools only a handful
   of visits. Switch the matcher to **`contains`** and enter the path segment of your
   main working surface (e.g. a chat route like `/c/`) to aggregate the whole working

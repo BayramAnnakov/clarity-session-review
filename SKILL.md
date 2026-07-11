@@ -101,7 +101,8 @@ your Clarity gotcha list before the first run of the day; new lessons go back in
 1. **Define the question(s)** and the session population (account IDs, date range,
    URL pattern — e.g. a query param that marks a value-moment surface).
 2. **Pull sessions** via the Clarity MCP server / direct API. **Favorite everything
-   relevant the same day** — retention is ~30 days rolling; favorites persist.
+   relevant the same day** — retention is ~30 days rolling; favorites are kept ~9
+   months.
 3. **Triage from timelines** (seconds per 100 sessions): classify every session,
    subtract hidden-tab time (both duration fields include it), attribute (principle 2).
    Most sessions close here. Output per survivor: hypothesis + the exact window(s)
@@ -146,8 +147,10 @@ your Clarity gotcha list before the first run of the day; new lessons go back in
 then: census (mix + deltas vs last period) · funnel-stage classification · **pattern
 table (new vs recurring, each strength-tagged, each refuter-survived)** · **dead-click
 + UI-clarity review (misleading labels / status-without-action, source-confirmed)** ·
-thin-session forensics · watched-evidence appendix (verifiable links) · OEC + gate/OAuth
-numbers · users to call. Every finding pairs with a recommended action + owner. Label
+thin-session forensics · watched-evidence appendix (verifiable links) · your OEC (the
+Overall Evaluation Criterion — the one metric the review is accountable to) + your
+funnel-gate numbers (paywall/limit hits, OAuth/connect outcomes) · users to call
+(where identifiable). Every finding pairs with a recommended action + owner. Label
 every number with its source (sessions vs database); explain any chart. HTML alongside
 Markdown. **Generate the HTML from the data JSONs** with a `build_report.py` (see
 [examples/](examples/)) — numbers reproducible, never hand-transcribed; the recurring
