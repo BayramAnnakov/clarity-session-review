@@ -439,10 +439,7 @@ dynamics AND the Stage-3 validation gate passes — motionless-reading windows a
 ## First-session comprehension watch — EXPERIMENT
 
 *Status: experiment, 2 periods. Promote to standing only if it produces findings that
-change decisions at ≥ the flagged-set rate. Validity check each period: a human
-re-watches a sample of the agent-labeled "comprehension broke" moments and the
-agreement rate is published with the findings — automated watchers have over-called
-soft signals before (see the dead-click gate's history).*
+change decisions at ≥ the flagged-set rate.*
 
 Every genuinely-new external human's first engaged session gets ONE full 1× watch,
 skip-inactivity OFF — exempt from the triage gate and the per-workspace watch cap.
@@ -451,18 +448,45 @@ cross-account humans (principle 2) before calling anyone new. At low traffic thi
 a handful of sessions per period — the cheapest attack on activation there is.
 
 Harvest (replay-unique: the database shows the activation OUTCOME; only the tape
-shows the comprehension PATH):
+shows the PATH):
 - what was on screen during motionless-READING windows — what got read vs skipped;
 - the first thing tried, and the gap between what onboarding DISPLAYS and what the
-  user ATTENDS to;
-- **the moment comprehension broke** (REQUIRED output field): frame + timestamp where
-  behavior diverged from the UI's intent — or explicitly "none: completed the path".
+  user ATTENDS to.
+
+### The output contract — DO NOT ask for "the moment comprehension broke"
+
+*(Paid for. The first run of this module required a field called "the moment
+comprehension broke". The watcher produced confident motive stories; on the mandated
+human re-watch the reviewer agreed with the BEHAVIOUR 2/2 and said **"not sure"** about
+the motive **2/2**. Of course he did — **motive is never on tape**; it is in this
+skill's own blind-spot list. The module was asking for an unfalsifiable field, which is
+precisely the confident-wrong-story failure the whole skill exists to prevent.)*
+
+Each watched first session outputs exactly three things:
+
+1. **The DIVERGENCE POINT (OBSERVED — behavioural only).** Timestamp + frame where the
+   user's behaviour departed from the designed path, stated with **no mental state in
+   the sentence**: "opened the example, then opened the menu, then left — never typed",
+   NOT "did not understand that he had to type". If you cannot write it without a verb
+   like *understood / realised / expected / was confused*, you are inferring. A verifier
+   must be able to confirm this line from the frames alone.
+2. **AT LEAST TWO competing explanations (INFERRED — labelled).** Never one. One
+   explanation is a story; two force the uncertainty into the open. ("(a) the pre-filled
+   composer read as already-done; (b) low intent — a 10-second tyre-kick.")
+3. **The PROBE.** The single question — to the user, or to a cold-reader — that would
+   discriminate between (a) and (b). This is the deliverable that closes the gap; the
+   watch alone never will.
+
+**The validity check tests #1, not #2.** Each period, a human re-watches a sample and
+confirms the DIVERGENCE POINT; publish that agreement rate. Never ask a reviewer to
+ratify a motive — they will say "not sure", and they will be right.
 
 Known false-positive modes (the claim-type row): a backgrounded tab is not stalled
 comprehension (read `Page hidden`/`visible` first); auto-translate artifacts; a
 "first session" that is a cross-account return; masked text misread as ignored text.
-Route each break-moment two ways: an OPPORTUNITY row in the report, and an interview
-question for that user ("at MM:SS you paused on X — what were you looking for?").
+Route each divergence point two ways: an OPPORTUNITY row in the report, and a real
+question for that user ("at MM:SS you opened the example and then left — what were you
+looking for?").
 
 ## Input-struggle / abandoned-intent forensics (standing — events-tier, cheap)
 
