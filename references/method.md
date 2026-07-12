@@ -131,6 +131,25 @@ watching catches that the pipeline missed.
 - Cross-instrument timestamps: align player-relative, API wall-clock, and DB UTC
   before claiming sequence.
 
+## Stage 4.5 — walk the step yourself (SKILL.md principle 8)
+Before any finding about *why* a step leaks, **go do that step on the real product, end
+to end, and screenshot every screen the user actually meets.** Replays show WHERE people
+stop; only walking shows WHAT you were asking of them, and this method — being about
+watching others — will never prompt it. The cost of skipping it: a full investigation
+(every replay, DB censuses, source, an expert panel) that landed on the wrong mechanism
+for a step sitting six clicks away on production that no one had clicked.
+- **Finish the flow, or claim nothing past where you stopped.** Partial walks
+  manufacture false confidence: a walk that halted at a third-party credential field
+  published "what we ask users to do" and missed that the true ask was password **plus a
+  live 2FA code** — a materially harder request, one screen further on.
+- **When you cannot or should not complete it** (real credentials, a payment, a genuine
+  third-party account — the security boundary is real, do not cross it): **STOP and hand
+  it to a human.** Get their screenshots of the *whole* path, including the success
+  state. Never infer the tail of a flow you did not see — the tail is usually where the
+  ask gets heavy.
+- The screenshots are evidence: they belong in the appendix beside the replays, dated,
+  with the exact click-path to reproduce them.
+
 ## Stage 5 — human watch
 Only for intent/emotion judgment calls that survive Stage 4. Hand over: player link +
 the question + the timestamp window — never "watch this recording".
@@ -394,6 +413,42 @@ Before publishing ANY "instrument A contradicts instrument B" claim, clear four 
    remember it makes B's counts **floors**, not fictions.
 
 A contradiction that survives all four is a finding. One that doesn't is arithmetic.
+
+## Before any RATE ships — four more gates (the denominator is a claim)
+
+*(SKILL.md principle 6. The cross-instrument gate above protects you when two numbers
+disagree. These protect you when a single number is quietly meaningless — which is the
+more dangerous case, because nothing contradicts it.)*
+
+**Write these four answers next to the rate, in the doc, before you publish it.** Each
+one has killed a finding that had already survived a census, a source read, and review.
+
+1. **Is the denominator people?** Bots, team/test seats, fragmentation, hidden-tab
+   inflation. *Strip bots before any segment carries a rate* — a mostly-bot segment
+   produces a spectacular, meaningless collapse. (A "mobile sign-in wall" died here: 38%
+   of the segment were 2-second scanners.)
+2. **Could every member have done it, for the whole window?** Find the **ship date of
+   the affordance** and compare it to the window. A rate whose denominator spans a
+   product change is fiction. (*"137 accepted invitations, never followed up"* — the
+   send button did not exist for most of that window. The claim had survived three
+   passes; it died to one `MIN(created_at)` and one `git log`.)
+3. **Did anyone attempt it?** ← **the trap that survives 1 and 2.** An empty cell has
+   two causes — *nobody tried*, or *everybody failed* — and they are identical in every
+   instrument you own. **Prove attempts before you explain a zero.** If you cannot, the
+   missing instrument *is* the finding: log the START of the step, not just its success.
+   (A "broken vendor integration" and a whole strategy on top of it died here: the flow
+   was fine; nobody had tried in nineteen days. Execution settled in three minutes what
+   three days of forensics could not.)
+4. **Was the window chosen before you saw the data?** Re-cut the same claim by month
+   before you publish it. ("80% broken" read 75% / 80% / 20% / *n=0 attempts* once
+   split.)
+
+**Cheap mechanical check for gates 2 and 3, run it every time:** for any rate of the
+form *"X of the people who reached step N did/didn't do step N+1"*, run
+`MIN(created_at)` on the table that records step N+1 and `git log -S` on the control
+that triggers it. If either postdates the start of your window, **the rate is an era
+artifact** and the honest denominator is only the users who arrived after the feature
+did. This one query has killed two published findings.
 
 **The dead-click gate is one row of a general claim-type verification table — write the
 row before trusting any classifier signal.** For each claim class: *required raw evidence ·

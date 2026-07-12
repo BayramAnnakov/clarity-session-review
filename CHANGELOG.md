@@ -3,6 +3,41 @@
 All notable changes to this skill are documented here. This is a public snapshot
 of a living internal skill; the principles are battle-tested, the examples anonymized.
 
+## [1.2.0] — 2026-07
+
+From a second, harder autopsy: an investigation that watched every relevant replay,
+censused the database, read the source, and ran an expert panel — and still shipped
+the wrong mechanism, because nobody had walked the step. Seven claims died in that
+run; five belonged to the analyst. Every one was killed by a query or a click, never
+by an argument.
+
+- **New principle 8 — "Walk the step before you explain it."** Replays show WHERE
+  people stop; only executing the step yourself shows WHAT you were asking of them.
+  Partial execution is worse than none (it manufactures confidence): the walk that
+  halted at a credential field missed that the real ask was password *plus a live 2FA
+  code*. If you can't complete a step (credentials, payment), hand it to a human for
+  full-path screenshots — never infer a flow's tail. New Stage 4.5 in `method.md`.
+- **Principle 6 rebuilt — a rate is four claims, not one.** Added three limbs beside
+  the people-not-sessions denominator: strip bots before a segment carries a rate;
+  every member could have done it *for the whole window* (a rate spanning a feature
+  ship-date is an era artifact); and the trap that survives the rest — *somebody must
+  have ATTEMPTED it* (an unattempted step and a failing step are identical in every
+  instrument). New "Before any RATE ships" gate in `method.md` with the one query that
+  catches it.
+- **Principle 3 extended — a column is not behavior until you know what WRITES it.**
+  A cron, migration, or vendor webhook can set the field a user's action would; grep
+  the writer before interpreting the value.
+- **Refuter aimed at the WELD** — when two true findings fuse into a memorable story,
+  the weld is the part with no evidence; check the correlation's outcome variable is
+  the one your mechanism explains, and hunt one counterexample on purpose.
+- **Report contract — a cold-read gate.** Test the report the way you test the
+  product: hand it to a no-context reader (or a subagent) and ask what they own,
+  what's decided vs open, and whether anything is being asked of them. Answer-first
+  page 1; DECIDED vs OPEN with a name on every line; one dated changelog instead of
+  scattered strikethroughs; own errors named first.
+- **Blind spots promoted from footnotes to GATES** — the third-party-flow interior is
+  unobservable (say it in the sentence); absence of complaint disconfirms nothing.
+
 ## [1.1.0] — 2026-07
 
 Discovery modules, from a four-perspective product-expert review whose consensus
