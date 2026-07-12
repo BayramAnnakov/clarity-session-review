@@ -136,9 +136,16 @@ your Clarity gotcha list before the first run of the day; new lessons go back in
 5b. **Refute before you publish a pattern.** Every candidate pattern gets one
    adversarial pass (default-to-refuted, DB access) that tries to kill it via the usual
    suspects: hidden-tab inflation, fragmentation, team/test contamination, cross-account
-   duplication, single-user generalization, seasonality. Publish the *surviving* form,
+   duplication, single-user generalization, seasonality, and the **cross-instrument
+   units/population gate** (`references/method.md`). Publish the *surviving* form,
    not the first draft — on one at-scale run this re-scoped 4 of 5 patterns. A pattern
    that hasn't survived a refuter is a hypothesis.
+   **Publish the MECHANISM, not the RATE, when n is small.** A defect proven in the
+   SOURCE is a finding at n=1 ("this card's root has no click handler — it cannot work
+   on touch"); a *rate* over a handful of watched users is not ("75% of mobile signups
+   went silent" — 3 of 4, p≈0.2, and one mobile user did fine). Replays and source give
+   you mechanisms cheaply and rates expensively; lead with what you actually have, and
+   state the n beside any rate you can't defend.
 6. **Dead-click analysis is a MANDATORY separate report section** (see the module in
    `references/method.md`): rank dead-click targets, classify each + fix direction, and
    triangulate the top ones against **frontend source** (grep the component to confirm

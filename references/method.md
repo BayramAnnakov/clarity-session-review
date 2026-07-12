@@ -139,6 +139,15 @@ the question + the timestamp window — never "watch this recording".
 MEASURED (events/DB) / OBSERVED (frames or trace — describe, don't interpret) /
 INFERRED (motive, labeled) + the Stage-0 answer. Every OBSERVED line carries
 provenance: `[stage | instrument | speed | skip on/off | resolution | window covered]`.
+
+**Record the DEVICE for every watched session — it is an attribution field, not
+metadata.** The player's Info tab gives device · OS · viewport · location · Clarity's
+own "User intent" score. Read it BEFORE interpreting behaviour: a 440×796 MobileSafari
+session and a 1536×742 desktop session are different products. *(Paid for: three
+"silent" signups read as low-intent tyre-kickers until the Info tab showed all three
+were on phones — one of them inside the Google App's in-app webview — and the source
+then proved the welcome card's only handlers were hover-based, i.e. dead on touch.
+Device turned an anecdote into a defect class.)*
 Negative evidence states coverage + resolution. Per session, one appendix row:
 **who (workspace + user) · player link · the moments to seek to · the claim · what a
 verifier should check · depth label (REPLAY/TIMELINE)** — the evidence-appendix
@@ -261,6 +270,16 @@ frontend source), lint the state table for invariants:
   (Connected → send; No reply → follow up; Replied → reply) but the UI gives no control.
 - (c) **Meaning survives colour + tooltip stripped.** If removing colour and hover
   leaves the label ambiguous, it fails.
+- (d) **No affordance may depend SOLELY on hover/focus — those events do not exist on
+  touch.** Lint every interactive-looking surface for a root whose only handlers are
+  `onMouseEnter` / `onMouseLeave` / `onFocus` / `onBlur` and which has **no `onClick`**.
+  On a phone that surface is inert *and* never gives the feedback that would tell the
+  user it is inert. *(Real instance: a big onboarding card whose root played a video on
+  hover to signal "I'm alive" and carried no click handler — only a small inner button
+  worked. On desktop the hover-video partly rescued it; on mobile it was a dead image.
+  A watched iPhone user tapped the card body twice, got nothing, and ended up in the
+  wrong flow.)* Coverage-independent and diffable — the lint's strongest suit, since no
+  amount of desktop replay-watching reveals it.
 Output: file:line + the failing invariant. Coverage-INDEPENDENT — audits states that
 never rendered in any watched session (Failed/Canceled variants often don't); it will
 even catch a misspelled status enum for free.
@@ -338,8 +357,29 @@ control-styled target in an action context survives as a defect. The automated w
 over-called this class; a human watch caught it — this is exactly the Stage-5 role.
 **Don't trust the count; verify each target.**
 
-**This gate is one row of a general claim-type verification table — write the row
-before trusting any classifier signal.** For each claim class: *required raw evidence ·
+## Cross-instrument gate — check UNITS and POPULATION before believing a contradiction
+
+*(Paid for, and it is the easiest self-own in the method: comparing one instrument's
+**logged-in users** against another's **sessions**, I "discovered" that our analytics was
+blind to mobile. It wasn't. Same-unit comparison — sessions vs sessions — showed the two
+instruments agreeing within 15%. The false contradiction was a units error, and it very
+nearly shipped as a finding about the instrument.)*
+
+Before publishing ANY "instrument A contradicts instrument B" claim, clear four gates:
+1. **Same unit.** sessions ≠ visits ≠ browsers ≠ people ≠ logged-in users. Name the unit
+   in the sentence; if the two numbers have different units, there is no contradiction yet.
+2. **Same window and timezone**, stated.
+3. **Same population filter** — one instrument's number is usually pre-login-inclusive,
+   bot-filtered, or team-excluded when the other's isn't.
+4. **Population overlap, spot-checked by NAME.** Can instrument B even *see* the specific
+   individuals A found? Look up 3-5 named users in both. Blindness is real (ad-blockers,
+   ITP, in-app webviews) — but prove it per-user before asserting it in aggregate, and
+   remember it makes B's counts **floors**, not fictions.
+
+A contradiction that survives all four is a finding. One that doesn't is arithmetic.
+
+**The dead-click gate is one row of a general claim-type verification table — write the
+row before trusting any classifier signal.** For each claim class: *required raw evidence ·
 known false-positive modes · alternate explanations that must die.* E.g. dead-click →
 {a real Dead-click event exists} · {copy-select drag, reading-tap} · {is it actually a
 selection? a working control clicked once?}. never-returned → {no session cross-day} ·
