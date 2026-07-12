@@ -222,6 +222,23 @@ Clarity" — recordings are one of ~10 families.
 
 # Thin-session forensics (standing module — no watching required)
 
+**FIRST: strip the BOTS, or every rate you compute is fiction.** Before thin sessions
+can tell you anything, classify the ones that are not people at all. The signature is
+sharp and mechanical: **≤2s duration · 0 clicks · 1 page · entry URL = exit URL · a
+NEW browser-uid every time · clustered in off-hours**. Scanners, link-preview
+fetchers and security crawlers all look like this, and they hammer whatever your
+unauthenticated landing page is — usually `/sign-in`.
+*(Paid for: a device-segmented pull showed "50 mobile browsers → 2 signed in", which
+read as a catastrophic 4% mobile sign-in wall. Classifying the population first:
+**38% were ≤2s/0-click bots**, most of the rest were sub-12-second bounces, and the
+real engaged-mobile population was **~9 sessions in 30 days** — about five humans.
+The "wall" was bot traffic in the denominator. The single "sign-in failure" left
+standing turned out to be one real user's first of two attempts; he got in on the
+second. A whole segment-level finding evaporated — correctly.)*
+Report the bot share explicitly, and never let a device / channel / page segment
+carry a rate until its bots are stripped: a segment that is mostly bots will show a
+spectacular conversion collapse that means nothing.
+
 Thin sessions (<30s, ≤1 click; 50-60% of all sessions on our runs — measure your own
 share) are a separate instrument, not noise. Aggregate them (Python over the pull JSON) by **entry-URL
 class × referrer domain × browser-uid × duration**, with uid-level exclusion (any
