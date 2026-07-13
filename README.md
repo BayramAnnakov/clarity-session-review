@@ -24,7 +24,7 @@ Every one was read straight off the Clarity event timeline. Watching the replays
 checking them against the product database and the frontend source — reversed all four.
 This skill is the checklist that makes that the default, not the lucky exception.
 
-## The seven principles (each one paid for by a specific mistake)
+## The eight principles (each one paid for by a specific mistake)
 
 1. **Question before player.** No discriminating question → no watching.
 2. **Attribute before interpreting.** Wire Clarity's Identify API if you can — it's
@@ -42,12 +42,19 @@ This skill is the checklist that makes that the default, not the lucky exception
 7. **Audit what the UI *shows*, not only what users click.** The method is behavioral and
    blind to a misleading label or a status with no next action; a source-lint of the
    label code catches those. *(Provisional.)*
+8. **Walk the step before you explain it.** Before theorizing about any step, execute it
+   yourself on the real product, end to end. Replays tell you WHERE people stop; only
+   walking tells you WHAT you were asking of them. **A partial walk is worse than none** —
+   it manufactures confidence: one halted at a credential field and published a careful
+   account of the ask, missing that the real ask was a password *and* a live 2FA code. If
+   you can't finish a step (credentials, payment, a third-party account), hand it to a
+   human for full-path screenshots — never infer a flow's tail.
 
 ## What's inside
 
 | File | What it is |
 |---|---|
-| [`SKILL.md`](SKILL.md) | The skill: the seven principles, the two modes, the pipeline, the report contract, the replay-semantics gotcha list, the cadences, and the blind spots. |
+| [`SKILL.md`](SKILL.md) | The skill: the eight principles, the two modes, the pipeline, the report contract, the replay-semantics gotcha list, the cadences, and the blind spots. |
 | [`references/method.md`](references/method.md) | Per-session mechanics + the standing modules: the **Clarity-instruments toolkit** (recordings are 1 of ~10 families), **thin-session forensics**, **dead-click analysis** (with a verify-first gate — a dead-click *count* is not a defect count), the **UI-clarity review**, the **discovery modules** (first-session comprehension · input-struggle/abandoned-intent · person-arc/return-visit · success-session shape), and a date-stamped **Clarity-facts appendix**. |
 | [`references/periodic-review.md`](references/periodic-review.md) | Mode B — the recurring "session-intelligence report" over ALL sessions in a window, as a **resumable multi-agent workflow** (scout → triage fan-out → serial watch → synthesize + adversarial refute). |
 | [`ADAPTING.md`](ADAPTING.md) | The eight-item checklist to wire the method to **your** product (URL→identity join, your database, your exclusion list, your source paths…). |
